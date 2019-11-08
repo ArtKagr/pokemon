@@ -67,3 +67,7 @@
   margin: 0 auto;
   margin-top: 15px;
 }
+.set-list {
+  display: flex;
+  flex-wrap: wrap;
+}
