@@ -2,39 +2,31 @@ import React, {Component} from 'react';
 import './App.css';
 
 export default class App extends Component {
-  constructor(){
-    super()
-    this.state = {};
+  constructor(props){
+    super(props)
+    this.state = {newUrl: [], newSymbol: []};
   }
     
 
 componentDidMount = async() => {
   const responce = await fetch('https://api.pokemontcg.io/v1/sets');
   const data = await responce.json();
-
-  let logoUrl = data.sets.map(function(item){
-    return item.logoUrl;
+  let url = data.sets.reduce(function(preval, item, index) {
+    
+    return {logoUrl: <img key={index} src={item.logoUrl} alt='logo' className="set__image"></img>, 
+            symbolUrl: <img key={index} src={item.symbolUrl} alt='symbol' className="set__content-image"></img>};
   })
-  let symbolUrl = data.sets.map(function(item){
-    return item.symbolUrl;
-  })
-      for(let i = 0; i < logoUrl.length; i++){
-        setInterval(() => {
-        let nogoUrl = logoUrl[i];
-        this.setState({nogoUrl});
-        let nogoSymbol = symbolUrl[i];
-        this.setState({nogoSymbol});
-      }, 1000);
-      }
+  this.setState({newUrl: url.logoUrl, newSymbol: url.symbolUrl})
+  console.log(this.state);
 
 
 }
   render() {
     return (
     <div className="set">     
-      <img src={this.state.nogoUrl} className="set__image" alt="logo"></img>
+      {this.state.newUrl}
       <div className="set__content">
-        <img src={this.state.nogoSymbol} className="set__content-image" alt="logo"></img>
+      {this.state.newSymbol}
         <div className="set__content-container">
         </div>
         <ul className="set__content-description">
