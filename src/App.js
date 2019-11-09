@@ -1,24 +1,17 @@
 import React from 'react';
 import './App.css';
-import Card from './Card';
 
 export default class App extends React.Component {
   constructor(props){
     super(props)
-    this.state = {set: [], code: [], dust: false};
-    this.handleSetDust = this.handleSetDust.bind(this);
+    this.state = {arr: []};
+    this.changeArray = this.changeArray.bind(this);
   }
-
-  handleSetDust(e) {
-    this.setState({
-      code: e.target.getAttribute('data-code'),
-      dust: false
-    })
-  }
-    
+  
 componentDidMount = async() => {
   const responce = await fetch('https://api.pokemontcg.io/v1/sets');
   const data = await responce.json();
+  console.log(data);
 
   let arrSet = [];
 
@@ -58,14 +51,32 @@ componentDidMount = async() => {
         </div>
       </div>);
     }
-  this.setState({set: arrSet});
+
+  this.setState({arr: arrSet});
+}
+changeArray = async(e) => {
+  if(e.target.classList.contains('set') || e.target.parentElement.classList.contains('set')) {
+    let dataCode = e.target.getAttribute('data-code');
+    if(dataCode === null) {
+      dataCode = e.target.parentElement.getAttribute('data-code');
+    }
+    const rezboze = await fetch(`https://api.pokemontcg.io/v1/cards?setCode=${dataCode}`);
+    const datoze = await rezboze.json();
+
+  let arrCard = [];
+
+      for(let i = datoze.cards.length - 1; i >= 0; i--) {
+          arrCard.push(
+              <img key={datoze.cards[i].id} src={datoze.cards[i].imageUrl} alt='logo' className="card"></img>
+          )
+      }
+  this.setState({arr: arrCard})
+}
 }
     render() {
           return (
-            <div className="set-list" onClick={(e) => {this.handleSetDust(e)}} >
-              {this.state.set}
-              <Card code={this.state.code}></Card> 
-              {console.log(this.state.code)}
+            <div className="set-list" onClick={(e) => {this.changeArray(e)}} >
+              {this.state.arr}
             </div>   
         )
     }
