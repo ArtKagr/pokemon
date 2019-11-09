@@ -2,9 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App'
+import Card from './Card'
 import './App.css';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class RenderList extends React.Component {
+    constructor(props) {
+        super(props);
+        const bol = this.props.onClick
+        console.log('props', bol)
+    }
+    render(){
+        return (
+            false ? (<App/>) : (<Card/>)
+        )
+    }
+}
+
+ReactDOM.render(<RenderList/>, document.getElementById('root'));
 
 serviceWorker.unregister();

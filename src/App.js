@@ -1,10 +1,19 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './App.css';
+import Card from './Card';
 
-export default class App extends Component {
+export default class App extends React.Component {
   constructor(props){
     super(props)
-    this.state = {set: []};
+    this.state = {set: [], code: [], dust: true};
+    this.handleSetDust = this.handleSetDust.bind(this);
+  }
+
+  handleSetDust(e) {
+    this.setState({
+      code: e.target.getAttribute('data-code'),
+      dust: false
+    })
   }
     
 componentDidMount = async() => {
@@ -49,29 +58,19 @@ componentDidMount = async() => {
         </div>
       </div>);
     }
-    /*let dust = [];
-    for(let i = data.sets.length - 1; i >= 0; i--) {
-    const responceCard = await fetch(`https://api.pokemontcg.io/v1/cards?setCode=${data.sets[i].code}`)
-    const dataCard = await responceCard.json();
-    dust.push(dataCard);
-  }
-    for(let i = dust.length - 1; i >= 0; i--) {
-
-      arrCard.push(<div data-code={dust.cards[i].id} key={dust.cards[i].id} className="card">
-        <img src={dust.cards[i].imageUrl} alt='logo' className="card"></img>
-      </div>);
-    }*/
-
   this.setState({set: arrSet});
 }
     render() {
-      console.log(this.state);
+      //<Card code={this.state.code}/>
+      //console.log(this.state);
           return (
-            <div className="set-list" onClick={function(e) {
-              console.log(e.target.getAttribute('data-code'))
-              /*this.setState({set: this.state.card})*/}}>
+            <div className="set-list" onClick={(e) => {this.handleSetDust(e)}}>
+              
               {this.state.set}
-            </div>
+              {console.log(this.state.code)}
+            </div>   
         )
     }
 }
+
+
