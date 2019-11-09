@@ -6,6 +6,26 @@
     transform: scale(1.1);
    }
 }
+@keyframes increase {
+  from {
+    transform: scale(1);
+   }
+  to {
+    transform: scale(1.1);
+   }
+}
+
+.card {
+  width: 240px;
+  height: 335px;
+  margin: 10px 20px;
+}
+
+.card:hover {
+  animation: increase linear 0.3s forwards;
+  cursor: pointer;
+}
+
 .set {
   display: flex;
   flex-direction: column;

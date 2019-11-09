@@ -11,7 +11,7 @@ componentDidMount = async() => {
   const responce = await fetch('https://api.pokemontcg.io/v1/sets');
   const data = await responce.json();
 
-  let arrKey = [];
+  let arrSet = [];
 
   this.standardLegal = <li></li>;
   this.expandedLegal = <li></li>;
@@ -29,8 +29,9 @@ componentDidMount = async() => {
         this.expandedLegal = <li></li>;
       }
 
-      arrKey.push(<div key={data.sets[i].code} className="set">
-        <img src={data.sets[i].logoUrl} alt='logo' className="set__image" onclick={console.log('По ссылке кликнули.')}></img>
+
+      arrSet.push(<div data-code={data.sets[i].code} key={data.sets[i].code} className="set">
+        <img src={data.sets[i].logoUrl} alt='logo' className="set__image"></img>
         <div className="set__content">
           <img src={data.sets[i].symbolUrl} alt='symbol' className="set__content-image"></img>
         <div className="set__content-container">
@@ -48,13 +49,29 @@ componentDidMount = async() => {
         </div>
       </div>);
     }
+    /*let dust = [];
+    for(let i = data.sets.length - 1; i >= 0; i--) {
+    const responceCard = await fetch(`https://api.pokemontcg.io/v1/cards?setCode=${data.sets[i].code}`)
+    const dataCard = await responceCard.json();
+    dust.push(dataCard);
+  }
+    for(let i = dust.length - 1; i >= 0; i--) {
 
-  this.setState({set: arrKey})
+      arrCard.push(<div data-code={dust.cards[i].id} key={dust.cards[i].id} className="card">
+        <img src={dust.cards[i].imageUrl} alt='logo' className="card"></img>
+      </div>);
+    }*/
+
+  this.setState({set: arrSet});
 }
-
     render() {
+      console.log(this.state);
           return (
-            <div className="set-list">{this.state.set}</div>
+            <div className="set-list" onClick={function(e) {
+              console.log(e.target.getAttribute('data-code'))
+              /*this.setState({set: this.state.card})*/}}>
+              {this.state.set}
+            </div>
         )
     }
 }
