@@ -94,4 +94,20 @@
 .set-list {
   display: flex;
   flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.button {
+  background: transparent;
+  border: 1px solid #3273dc;
+  font-size: 16px;  
+  display: block;
+  margin: 10px 0 30px 10px;
+}
+.button:hover {
+  animation: increase linear 0.3s forwards;
+  cursor: pointer;
+}
+.button.button_is-closed {
+  display: none;
 }
