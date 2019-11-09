@@ -6,18 +6,20 @@ import Card from './Card'
 import './App.css';
 import * as serviceWorker from './serviceWorker';
 
+
 class RenderList extends React.Component {
     constructor(props) {
         super(props);
-        const bol = this.props.onClick
-        console.log('props', bol)
+        this.state ={};
     }
     render(){
         return (
-            false ? (<App/>) : (<Card/>)
+           false ? (<App/>) : (<Card/>)
         )
     }
 }
+
+
 
 ReactDOM.render(<RenderList/>, document.getElementById('root'));
 

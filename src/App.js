@@ -5,7 +5,7 @@ import Card from './Card';
 export default class App extends React.Component {
   constructor(props){
     super(props)
-    this.state = {set: [], code: [], dust: true};
+    this.state = {set: [], code: [], dust: false};
     this.handleSetDust = this.handleSetDust.bind(this);
   }
 
@@ -61,12 +61,10 @@ componentDidMount = async() => {
   this.setState({set: arrSet});
 }
     render() {
-      //<Card code={this.state.code}/>
-      //console.log(this.state);
           return (
-            <div className="set-list" onClick={(e) => {this.handleSetDust(e)}}>
-              
+            <div className="set-list" onClick={(e) => {this.handleSetDust(e)}} >
               {this.state.set}
+              <Card code={this.state.code}></Card> 
               {console.log(this.state.code)}
             </div>   
         )

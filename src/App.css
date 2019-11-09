@@ -26,6 +26,10 @@
   cursor: pointer;
 }
 
+.card-bar {
+  display: none;
+}
+
 .set {
   display: flex;
   flex-direction: column;

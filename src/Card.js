@@ -4,18 +4,17 @@ import './App.css';
 export default class Card extends React.Component {
     constructor(props){
       super(props)
-      this.state = {link: []};
+      this.state = {link: [], mode: this.props.code};
     }
     componentDidMount = async() => {
-        const responce = await fetch(`https://api.pokemontcg.io/v1/cards?setCode=sm1`);
+        const responce = await fetch(`https://api.pokemontcg.io/v1/cards?setCode=${this.props.code}`);
         const data = await responce.json();
-        console.log(data)
 
         let arrCard = [];
 
         for(let i = data.cards.length - 1; i >= 0; i--) {
             arrCard.push(
-                <img src={data.cards[i].imageUrl} alt='logo' className="card"></img>
+                <img key={data.cards[i].id} src={data.cards[i].imageUrl} alt='logo' className="card"></img>
             )
         }
         this.setState({link: arrCard});
